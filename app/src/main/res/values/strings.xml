@@ -13,7 +13,10 @@
     <string name="visit_register">cadastrar uma visita</string>
     <string name="address_street">Rua</string>
     <string name="address_district">Bairro</string>
-    <string name="address_number">number</string>
+    <string name="address_number">Número</string>
     <string name="address_city">Cidade</string>
     <string name="save">salvar</string>
+    <string name="home">Home</string>
+    <string name="leads_clientes">Leads/Clientes</string>
+    <string name="visits">Visitas</string>
 </resources>

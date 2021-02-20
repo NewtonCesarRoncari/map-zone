@@ -19,4 +19,14 @@
         android:name="com.newton.zone.view.fragment.FormBusinessRegisterFragment"
         android:label="Cadastro de lead"
         tools:layout="@layout/fragment_business_form" />
+    <fragment
+        android:id="@+id/listBusiness"
+        android:name="com.newton.zone.view.fragment.ListBusiness"
+        android:label="Leads e Clientes"
+        tools:layout="@layout/fragment_list_business"/>
+    <fragment
+        android:id="@+id/listVisit"
+        android:name="com.newton.zone.view.fragment.ListVisit"
+        android:label="Visitas"
+        tools:layout="@layout/fragment_list_visits"/>
 </navigation>

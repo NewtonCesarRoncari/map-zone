@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import com.newton.zone.R
+import kotlinx.android.synthetic.main.frame_navigation.*
 
 class NavigationActivity : AppCompatActivity() {
 
@@ -16,6 +18,8 @@ class NavigationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(R.layout.frame_navigation)
+
+        NavigationUI.setupWithNavController(bottom_nav, navController)
 
         navController.addOnDestinationChangedListener { _,
                                                         destination,
