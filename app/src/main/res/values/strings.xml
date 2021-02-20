@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">zone</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="pin_register">pin register</string>
+    <string name="lead_register">Cadastrar Lead</string>
 </resources>
