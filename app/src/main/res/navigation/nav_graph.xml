@@ -9,5 +9,14 @@
         android:id="@+id/homeFragment"
         android:name="com.newton.zone.view.fragment.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_formBusinessRegisterFragment"
+            app:destination="@id/formBusinessRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formBusinessRegisterFragment"
+        android:name="com.newton.zone.view.fragment.FormBusinessRegisterFragment"
+        android:label="Cadastro de lead"
+        tools:layout="@layout/fragment_business_form" />
 </navigation>

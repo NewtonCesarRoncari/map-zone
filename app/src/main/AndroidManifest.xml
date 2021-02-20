@@ -19,7 +19,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Zone">
+        android:theme="@style/Theme.Zone"
+        android:name=".App">
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -34,7 +35,8 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".view.NavigationActivity">
+            android:name=".view.NavigationActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

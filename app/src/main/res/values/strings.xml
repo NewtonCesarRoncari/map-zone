@@ -2,4 +2,18 @@
     <string name="app_name">zone</string>
     <string name="pin_register">pin register</string>
     <string name="lead_register">Cadastrar Lead</string>
+    <string name="name_ec">Nome do EC</string>
+    <string name="address_ec">endereço</string>
+    <string name="c">c</string>
+    <string name="tpv">TPV</string>
+    <string name="choose_segment">Segment</string>
+    <string name="visit">visita</string>
+    <string name="register_address">Informe um endereço</string>
+    <string name="location">location</string>
+    <string name="visit_register">cadastrar uma visita</string>
+    <string name="address_street">Rua</string>
+    <string name="address_district">Bairro</string>
+    <string name="address_number">number</string>
+    <string name="address_city">Cidade</string>
+    <string name="save">salvar</string>
 </resources>

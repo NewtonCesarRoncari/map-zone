@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.newton.zone.view.fragment.HomeFragment.Constant.REQUEST_LOCATION_PERMISSION
 import com.newton.zone.view.fragment.HomeFragment.Constant.TIME_INTERVAL
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() {
@@ -40,6 +42,7 @@ class HomeFragment : Fragment() {
     }
     private lateinit var googleMap: GoogleMap
     private lateinit var mapFragment: SupportMapFragment
+    private val navController by lazy { NavHostFragment.findNavController(this) }
 
 
     object Constant {
@@ -60,6 +63,16 @@ class HomeFragment : Fragment() {
         mapFragment =
             childFragmentManager.findFragmentById(com.newton.zone.R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(callback)
+
+        fragment_home_btn_register_lead.setOnClickListener {
+            goFormBusinessRegisterFragment()
+        }
+    }
+
+    private fun goFormBusinessRegisterFragment() {
+        val direction = HomeFragmentDirections
+            .actionHomeFragmentToFormBusinessRegisterFragment()
+        navController.navigate(direction)
     }
 
     @SuppressLint("MissingPermission")
@@ -195,7 +208,7 @@ class HomeFragment : Fragment() {
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                 currentMaker = googleMap.addMarker(markerOptions)
 
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0F))
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0F))
             }
         }
     }
