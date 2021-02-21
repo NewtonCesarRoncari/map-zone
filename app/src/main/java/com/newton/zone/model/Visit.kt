@@ -9,8 +9,8 @@ import java.util.*
 @Entity(
     foreignKeys = [ForeignKey(
         entity = Business::class,
-        childColumns = ["id"],
-        parentColumns = ["business_id"],
+        parentColumns = ["id"],
+        childColumns = ["business_id"],
         onUpdate = CASCADE,
         onDelete = CASCADE
     )],
@@ -18,14 +18,14 @@ import java.util.*
 )
 class Visit(
     @PrimaryKey(autoGenerate = false)
-    val id: String,
-    val name: String,
-    val address: String,
-    val segment: Segment,
-    val date: Date,
-    val hour: Date,
+    val id: String = "",
+    val name: String = "",
+    val address: String = "",
+    val segment: String = "",
+    val date: Date = Date(),
+    val hour: Date = Date(),
     @ColumnInfo(name = "business_id")
-    val businessId: String
+    val businessId: String = ""
 ) : Serializable {
     constructor(business: Business, id: String = "", day: Date, hour: Date) : this(
         id.returnUUID(),

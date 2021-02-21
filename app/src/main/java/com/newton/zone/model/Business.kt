@@ -1,6 +1,7 @@
 package com.newton.zone.model
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.io.Serializable
 import java.math.BigDecimal
@@ -12,6 +13,8 @@ class Business(
     val name: String,
     val address: String,
     val tpv: BigDecimal = BigDecimal.ZERO,
-    val segment: Segment,
-    val visit: Visit
-): Serializable
+    val segment: String,
+): Serializable {
+    @Ignore
+    val visit: Visit = Visit()
+}

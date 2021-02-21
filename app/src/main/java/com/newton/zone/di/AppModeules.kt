@@ -2,7 +2,13 @@ package com.newton.zone.di
 
 import androidx.room.Room
 import com.newton.zone.database.ConnectionDatabase
+import com.newton.zone.database.dao.BusinessDAO
+import com.newton.zone.database.dao.VisitDAO
+import com.newton.zone.repository.BusinessRepository
+import com.newton.zone.repository.VisitRepository
+import com.newton.zone.view.viewmodel.BusinessViewModel
 import com.newton.zone.view.viewmodel.StateAppComponentsViewModel
+import com.newton.zone.view.viewmodel.VisitViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -18,6 +24,18 @@ val databaseModule = module {
     }
 }
 
+val daoModule = module {
+    single<BusinessDAO> { get<ConnectionDatabase>().businessDAO() }
+    single<VisitDAO> { get<ConnectionDatabase>().visitDAO() }
+}
+
+val repositoryModule = module {
+    single<BusinessRepository> { BusinessRepository(dao = get()) }
+    single<VisitRepository> { VisitRepository(dao = get()) }
+}
+
 val viewModelModule = module {
     viewModel<StateAppComponentsViewModel> { StateAppComponentsViewModel() }
+    viewModel<BusinessViewModel> { BusinessViewModel(repository = get()) }
+    viewModel<VisitViewModel> { VisitViewModel(repository = get()) }
 }

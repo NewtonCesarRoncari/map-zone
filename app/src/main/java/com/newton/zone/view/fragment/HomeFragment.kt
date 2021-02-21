@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -26,15 +27,18 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.newton.zone.view.fragment.HomeFragment.Constant.REQUEST_LOCATION_PERMISSION
 import com.newton.zone.view.fragment.HomeFragment.Constant.TIME_INTERVAL
+import com.newton.zone.view.viewmodel.BusinessViewModel
 import com.newton.zone.view.viewmodel.StateAppComponentsViewModel
 import com.newton.zone.view.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment() {
 
     private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
+    private val businessViewModel: BusinessViewModel by viewModel()
     lateinit var mGoogleMap: GoogleMap
     lateinit var locationRequest: LocationRequest
     var location: Location? = null
@@ -70,9 +74,7 @@ class HomeFragment : Fragment() {
             childFragmentManager.findFragmentById(com.newton.zone.R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(callback)
 
-        fragment_home_btn_register_lead.setOnClickListener {
-            goFormBusinessRegisterFragment()
-        }
+        fragment_home_btn_register_lead.setOnClickListener { goFormBusinessRegisterFragment() }
     }
 
     private fun goFormBusinessRegisterFragment() {
@@ -89,9 +91,16 @@ class HomeFragment : Fragment() {
         locationRequest.interval = TIME_INTERVAL
         locationRequest.fastestInterval = TIME_INTERVAL
         locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-
         configMap(googleMap)
+        showBusinessPins(googleMap)
+    }
 
+    private fun showBusinessPins(googleMap: GoogleMap) {
+        businessViewModel.listAll().observe(viewLifecycleOwner, { listOfBusiness ->
+            for (business in listOfBusiness) {
+                googleMap.addMarker(MarkerOptions().position(getCoordinates(business.address)))
+            }
+        })
     }
 
     private fun configMap(googleMap: GoogleMap) {
@@ -184,15 +193,13 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun pegaCoordenada(): LatLng? {
+    private fun getCoordinates(address: String): LatLng {
         val location = Geocoder(requireContext())
         val fromLocationName = location.getFromLocationName(
-            "Rua Sebastião Alves de Oliveira 293, Bairro Santa Sara, Nova Serrana",
+            address,
             1
         )
-        return if (fromLocationName.isNotEmpty()) {
-            LatLng(fromLocationName[0].latitude, fromLocationName[0].longitude)
-        } else null
+        return LatLng(fromLocationName[0].latitude, fromLocationName[0].longitude)
     }
 
     private var locationCallback: LocationCallback = object : LocationCallback() {

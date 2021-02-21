@@ -6,24 +6,35 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.WindowId
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.textfield.TextInputLayout
 import com.newton.zone.R
+import com.newton.zone.extension.returnUUID
+import com.newton.zone.extension.showDialogMessage
+import com.newton.zone.extension.tryParseBigDecimal
 import com.newton.zone.model.*
 import com.newton.zone.validation.PatternValidation
 import com.newton.zone.validation.Validator
 import com.newton.zone.view.dialog.AddressFormDialog
+import com.newton.zone.view.viewmodel.BusinessViewModel
 import com.newton.zone.view.viewmodel.StateAppComponentsViewModel
 import com.newton.zone.view.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_business_form.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
+import java.math.BigDecimal
 
 class FormBusinessRegisterFragment : Fragment() {
 
     private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
+    private val viewModel: BusinessViewModel by viewModel()
+    private val navController by lazy { NavHostFragment.findNavController(this) }
+    private var fullAddress: String = ""
     private val validators = mutableListOf<Validator>()
     private val itemsDropdown by lazy {
         listOf(
@@ -56,8 +67,25 @@ class FormBusinessRegisterFragment : Fragment() {
         initSegmentDropDown()
         business_form_address_card.setOnClickListener { callInsertAddressDialog() }
         business_tpv_form_address.doOnTextChanged { text, _, _, _ -> formatFieldForMoneyMask(text) }
-        form_business_save_btn.setOnClickListener { //makeAndSaveBusiness()
+        form_business_save_btn.setOnClickListener {
+            val formIsValid: Boolean = validAllFields()
+            if (formIsValid) {
+                makeAndSaveBusiness()
+                navController.popBackStack(R.id.homeFragment, false)
+            }
         }
+    }
+
+    private fun makeAndSaveBusiness(id: String = "") {
+        viewModel.insert(
+            Business(
+                id.returnUUID(),
+                business_form_name.text.toString().trim(),
+                fullAddress,
+                tryParseBigDecimal(business_tpv_form_address.text.toString().trim().replace("$", "")),
+                dropDownTextView_segment_edit.text.toString().trim(),
+            )
+        )
     }
 
     private fun initSegmentDropDown() {
@@ -89,6 +117,7 @@ class FormBusinessRegisterFragment : Fragment() {
         fragment_form_street.text = streetConcat
         fragment_form_district.text = district
         fragment_form_city.text = city
+        fullAddress = "$street, $district, $city"
     }
 
     private fun turnFieldsVisible() {
@@ -134,5 +163,19 @@ class FormBusinessRegisterFragment : Fragment() {
                     .length else originalCursorPosition + cursorOffset
             )
         }
+    }
+
+    private fun validAllFields(): Boolean {
+        if (fullAddress.isEmpty()){
+            showDialogMessage("Campo Obrigatório", "Por favor informe o endereço para continuar", requireContext())
+            return false
+        }
+        var formIsValid = true
+        for (validator in validators) {
+            if (!validator.isValid()) {
+                formIsValid = false
+            }
+        }
+        return formIsValid
     }
 }
