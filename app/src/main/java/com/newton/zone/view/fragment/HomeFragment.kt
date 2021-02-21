@@ -26,11 +26,15 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.newton.zone.view.fragment.HomeFragment.Constant.REQUEST_LOCATION_PERMISSION
 import com.newton.zone.view.fragment.HomeFragment.Constant.TIME_INTERVAL
+import com.newton.zone.view.viewmodel.StateAppComponentsViewModel
+import com.newton.zone.view.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 class HomeFragment : Fragment() {
 
+    private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
     lateinit var mGoogleMap: GoogleMap
     lateinit var locationRequest: LocationRequest
     var location: Location? = null
@@ -55,7 +59,9 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(com.newton.zone.R.layout.fragment_home, container, false)
+        val view = inflater.inflate(com.newton.zone.R.layout.fragment_home, container, false)
+        appComponentsViewModel.havComponent = VisualComponents(true)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -110,7 +116,7 @@ class HomeFragment : Fragment() {
                 locationCallback,
                 Looper.myLooper()
             )
-            mGoogleMap.isMyLocationEnabled = true
+            googleMap.isMyLocationEnabled = true
         }
     }
 

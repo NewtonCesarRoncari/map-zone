@@ -16,10 +16,14 @@ import com.newton.zone.model.*
 import com.newton.zone.validation.PatternValidation
 import com.newton.zone.validation.Validator
 import com.newton.zone.view.dialog.AddressFormDialog
+import com.newton.zone.view.viewmodel.StateAppComponentsViewModel
+import com.newton.zone.view.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_business_form.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class FormBusinessRegisterFragment : Fragment() {
 
+    private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
     private val validators = mutableListOf<Validator>()
     private val itemsDropdown by lazy {
         listOf(
@@ -40,7 +44,9 @@ class FormBusinessRegisterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_business_form, container, false)
+        val view = inflater.inflate(R.layout.fragment_business_form, container, false)
+        appComponentsViewModel.havComponent = VisualComponents(false)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,10 +56,8 @@ class FormBusinessRegisterFragment : Fragment() {
         initSegmentDropDown()
         business_form_address_card.setOnClickListener { callInsertAddressDialog() }
         business_tpv_form_address.doOnTextChanged { text, _, _, _ -> formatFieldForMoneyMask(text) }
-        form_business_save_btn.setOnClickListener { makeAndSaveBusiness() }
-    }
-
-    private fun makeAndSaveBusiness() {
+        form_business_save_btn.setOnClickListener { //makeAndSaveBusiness()
+        }
     }
 
     private fun initSegmentDropDown() {
