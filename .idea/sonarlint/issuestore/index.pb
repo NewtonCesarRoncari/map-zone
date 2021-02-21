@@ -39,8 +39,6 @@ c
 3app/src/main/java/com/newton/zone/model/Business.kt,8\9\894fa8eb4dcd05ea1d85629a36b6c95681010933
 p
 @app/src/main/res/drawable-v24/buttonshape_form_business_save.xml,c\6\c697933a3cd5cdbfb7e6bb062387371bdf5ed8b4
-`
-0app/src/main/res/layout/fragment_list_visits.xml,3\5\350860336aa981e73a536110bfd06d45f86ccd39
 \
 ,app/src/main/res/layout/frame_navigation.xml,c\5\c5604f8998bcedb9f74435f990771d3f3cdcff82
 X
