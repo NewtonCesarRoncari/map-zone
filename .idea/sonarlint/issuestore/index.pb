@@ -37,12 +37,8 @@ X
 0app/src/main/java/com/newton/zone/model/Visit.kt,4\4\44e9bc0ff94482c0ba266c5ef2882d8f613a0944
 c
 3app/src/main/java/com/newton/zone/model/Business.kt,8\9\894fa8eb4dcd05ea1d85629a36b6c95681010933
-U
-%app/src/main/res/menu/bottom_menu.xml,7\a\7a1d43f2cd7aa41f89c4f7b135fd704c0f4b9254
 p
 @app/src/main/res/drawable-v24/buttonshape_form_business_save.xml,c\6\c697933a3cd5cdbfb7e6bb062387371bdf5ed8b4
-b
-2app/src/main/res/layout/fragment_list_business.xml,7\6\764b4ea061a59867ed10a1526bb6803af13a668c
 `
 0app/src/main/res/layout/fragment_list_visits.xml,3\5\350860336aa981e73a536110bfd06d45f86ccd39
 \
@@ -55,12 +51,8 @@ o
 ?app/src/main/java/com/newton/zone/view/fragment/ListBusiness.kt,f\d\fd995319c4d168396eb06f0387753ff545cda9a0
 l
 <app/src/main/java/com/newton/zone/view/fragment/ListVisit.kt,0\1\015796628909070ecab88ab91546b892c3dfa51b
-Y
-)app/src/main/res/navigation/nav_graph.xml,b\a\baffce053da291d96fb575a09f2bbe9aaa9c4be9
 q
 Aapp/src/main/java/com/newton/zone/validation/PatternValidation.kt,f\e\fe0ec3c797736445562c6fd6b60c7efae0da7e9f
-S
-#app/src/main/res/values/strings.xml,d\2\d2281fbb3027de2722081a53408dd77628bf080e
 i
 9app/src/main/java/com/newton/zone/validation/Validator.kt,b\1\b133dcd877be00d18544ef773f6dcf396afdc00b
 b

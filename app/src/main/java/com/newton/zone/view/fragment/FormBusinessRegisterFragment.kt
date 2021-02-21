@@ -82,6 +82,7 @@ class FormBusinessRegisterFragment : Fragment() {
                 id.returnUUID(),
                 business_form_name.text.toString().trim(),
                 fullAddress,
+                @Type LEAD,
                 tryParseBigDecimal(business_tpv_form_address.text.toString().trim().replace("$", "")),
                 dropDownTextView_segment_edit.text.toString().trim(),
             )

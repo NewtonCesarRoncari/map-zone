@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/list_item_options_send"
+            android:icon="@drawable/ic_send"
+            android:title="@string/enviar_proposta" />
+        <item
+            android:id="@+id/list_item_options_turn_client"
+            android:icon="@drawable/ic_peoples"
+            android:title="@string/tornar_cliente" />
+        <item
+            android:id="@+id/list_item_options_visit"
+            android:icon="@drawable/ic_visit"
+            android:title="@string/agendar_visita" />
+    </group>
+</menu>

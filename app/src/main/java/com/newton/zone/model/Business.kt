@@ -12,6 +12,7 @@ class Business(
     val id: String,
     val name: String,
     val address: String,
+    var type: String,
     val tpv: BigDecimal = BigDecimal.ZERO,
     val segment: String,
 ): Serializable {

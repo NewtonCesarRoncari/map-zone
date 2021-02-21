@@ -14,7 +14,9 @@ class BusinessRepository(private val dao: BusinessDAO) {
 
     fun insert(business: Business) = scope.launch { dao.insert(business) }
 
-    fun update(business: Business) = scope.launch { dao.update(business) }
+    fun update(business: Business) = scope.launch {
+        dao.update(business)
+    }
 
     fun listAll() = dao.listAll()
 }

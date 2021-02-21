@@ -24,16 +24,18 @@ class Visit(
     val segment: String = "",
     val date: Date = Date(),
     val hour: Date = Date(),
+    val observation: String = "",
     @ColumnInfo(name = "business_id")
     val businessId: String = ""
 ) : Serializable {
-    constructor(business: Business, id: String = "", day: Date, hour: Date) : this(
+    constructor(business: Business, id: String = "", day: Date, hour: Date, observation: String) : this(
         id.returnUUID(),
         business.name,
         business.address,
         business.segment,
         day,
         hour,
+        observation,
         business.id
     )
 }

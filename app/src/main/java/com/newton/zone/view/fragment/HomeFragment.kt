@@ -33,6 +33,7 @@ import com.newton.zone.view.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.lang.IndexOutOfBoundsException
 
 
 class HomeFragment : Fragment() {
@@ -98,7 +99,9 @@ class HomeFragment : Fragment() {
     private fun showBusinessPins(googleMap: GoogleMap) {
         businessViewModel.listAll().observe(viewLifecycleOwner, { listOfBusiness ->
             for (business in listOfBusiness) {
-                googleMap.addMarker(MarkerOptions().position(getCoordinates(business.address)))
+                val latLng = getCoordinates(business.address)
+                if (latLng != null)
+                googleMap.addMarker(MarkerOptions().position(latLng))
             }
         })
     }
@@ -193,13 +196,18 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun getCoordinates(address: String): LatLng {
+    private fun getCoordinates(address: String): LatLng? {
         val location = Geocoder(requireContext())
         val fromLocationName = location.getFromLocationName(
             address,
             1
         )
-        return LatLng(fromLocationName[0].latitude, fromLocationName[0].longitude)
+        return try {
+            LatLng(fromLocationName[0].latitude, fromLocationName[0].longitude)
+        } catch (error: IndexOutOfBoundsException){
+            error.printStackTrace()
+            return null
+        }
     }
 
     private var locationCallback: LocationCallback = object : LocationCallback() {
