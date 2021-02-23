@@ -2,7 +2,10 @@ package com.newton.zone.view.fragment
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Geocoder
 import android.location.Location
 import android.os.Build
@@ -17,7 +20,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -25,6 +27,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.newton.zone.extension.formatCoin
+import com.newton.zone.extension.limit
+import com.newton.zone.model.Business
+import com.newton.zone.model.CLIENT
+import com.newton.zone.model.LEAD
+import com.newton.zone.model.Type
+import com.newton.zone.view.fragment.HomeFragment.Constant.MAX_CHARACTER
 import com.newton.zone.view.fragment.HomeFragment.Constant.REQUEST_LOCATION_PERMISSION
 import com.newton.zone.view.fragment.HomeFragment.Constant.TIME_INTERVAL
 import com.newton.zone.view.viewmodel.BusinessViewModel
@@ -57,6 +66,7 @@ class HomeFragment : Fragment() {
     object Constant {
         const val REQUEST_LOCATION_PERMISSION: Int = 99
         const val TIME_INTERVAL: Long = 120000
+        const val MAX_CHARACTER = 28
     }
 
     override fun onCreateView(
@@ -75,10 +85,10 @@ class HomeFragment : Fragment() {
             childFragmentManager.findFragmentById(com.newton.zone.R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(callback)
 
-        fragment_home_btn_register_lead.setOnClickListener { goFormBusinessRegisterFragment() }
+        fragment_home_btn_register_lead.setOnClickListener { goToBusinessRegisterFragment() }
     }
 
-    private fun goFormBusinessRegisterFragment() {
+    private fun goToBusinessRegisterFragment() {
         val direction = HomeFragmentDirections
             .actionHomeFragmentToFormBusinessRegisterFragment()
         navController.navigate(direction)
@@ -94,16 +104,64 @@ class HomeFragment : Fragment() {
         locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
         configMap(googleMap)
         showBusinessPins(googleMap)
+        onMarkerClickListener(googleMap)
+    }
+
+    private fun onMarkerClickListener(googleMap: GoogleMap?) {
+        googleMap?.setOnMarkerClickListener { marker ->
+            if (marker.tag != null) {
+                home_card_view.visibility = View.VISIBLE
+                initViews(marker.tag)
+            }
+            false
+        }
+    }
+
+    private fun initViews(tag: Any?) {
+        businessViewModel.findById(tag as String).observe(viewLifecycleOwner, { business ->
+            home_name_ec.text = business.name
+            home_address.text = business.address.limit(MAX_CHARACTER)
+            home_segment.text = business.segment
+            home_tpv.text = business.tpv.formatCoin(requireContext())
+            whenBusinessIsClient(business)
+        })
     }
 
     private fun showBusinessPins(googleMap: GoogleMap) {
-        businessViewModel.listAll().observe(viewLifecycleOwner, { listOfBusiness ->
+        businessViewModel.listAll().observe(viewLifecycleOwner) { listOfBusiness ->
             for (business in listOfBusiness) {
                 val latLng = getCoordinates(business.address)
                 if (latLng != null)
-                googleMap.addMarker(MarkerOptions().position(latLng))
+                    if (business.type == @Type LEAD) {
+                        markPin(googleMap, business, latLng, com.newton.zone.R.drawable.ic_green_pin)
+                    } else if (business.type == @Type CLIENT) {
+                        markPin(googleMap, business, latLng, com.newton.zone.R.drawable.ic_purple_pin)
+                    }
             }
-        })
+            if (listOfBusiness.isNotEmpty()) {
+                googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        getCoordinates(listOfBusiness.last().address),
+                        17.0F
+                    )
+                )
+            }
+        }
+    }
+
+    private fun markPin(
+        map: GoogleMap,
+        business: Business,
+        latLng: LatLng,
+        icImagePin: Int
+    ) {
+        val marker = map.addMarker(
+            MarkerOptions()
+                .title(business.name)
+                .position(latLng)
+                .icon(bitmapDescriptorFromVector(requireActivity(), icImagePin))
+        )
+        marker.tag = business.id
     }
 
     private fun configMap(googleMap: GoogleMap) {
@@ -144,8 +202,8 @@ class HomeFragment : Fragment() {
                 )
             ) {
                 AlertDialog.Builder(requireContext())
-                    .setTitle("Location Permission Needed")
-                    .setMessage("This app needs the Location permission, please accept to use location functionality")
+                    .setTitle("Permissão Location Negada")
+                    .setMessage("Este app precisa da Location permission, por favor aceite a funcionalidade location")
                     .setPositiveButton(
                         "OK"
                     ) { _, _ ->
@@ -204,7 +262,7 @@ class HomeFragment : Fragment() {
         )
         return try {
             LatLng(fromLocationName[0].latitude, fromLocationName[0].longitude)
-        } catch (error: IndexOutOfBoundsException){
+        } catch (error: IndexOutOfBoundsException) {
             error.printStackTrace()
             return null
         }
@@ -225,12 +283,48 @@ class HomeFragment : Fragment() {
                 val latLng = LatLng(location.latitude, location.longitude)
                 val markerOptions = MarkerOptions()
                 markerOptions.position(latLng)
-                markerOptions.title("Current Position")
+                markerOptions.title("Você")
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                 currentMaker = googleMap.addMarker(markerOptions)
 
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0F))
             }
+        }
+    }
+
+    private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+        val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
+        vectorDrawable!!.setBounds(
+            0,
+            0,
+            vectorDrawable.intrinsicWidth,
+            vectorDrawable.intrinsicHeight
+        )
+        val bitmap = Bitmap.createBitmap(
+            vectorDrawable.intrinsicWidth,
+            vectorDrawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        vectorDrawable.draw(canvas)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
+    private fun whenBusinessIsClient(business: Business) {
+        if (business.type == @Type CLIENT) {
+            home_business_id.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    com.newton.zone.R.color.purple_500
+                )
+            )
+        } else {
+            home_business_id.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    com.newton.zone.R.color.design_default_color_secondary_variant
+                )
+            )
         }
     }
 

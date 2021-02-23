@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <fragment xmlns:tools="http://schemas.android.com/tools"
+    <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
@@ -24,5 +25,107 @@
         android:backgroundTint="@color/design_default_color_secondary"
         app:layout_constraintBottom_toBottomOf="@id/map"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/home_card_view"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_margin="8dp"
+        android:elevation="5dp"
+        android:foreground="@drawable/custom_ripple"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnusedAttribute">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/home_business_id"
+                android:layout_width="15dp"
+                android:layout_height="0dp"
+                android:background="@color/design_default_color_secondary_variant"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/home_name_ec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="6dp"
+                android:text="@string/name_ec"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/home_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/address_ec"
+                app:layout_constraintStart_toEndOf="@+id/ic_house"
+                app:layout_constraintTop_toBottomOf="@+id/home_name_ec" />
+
+            <TextView
+                android:id="@+id/home_tpv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/tpv"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/home_name_ec" />
+
+            <TextView
+                android:id="@+id/home_segment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/choose_segment"
+                app:layout_constraintStart_toStartOf="@+id/home_address"
+                app:layout_constraintTop_toBottomOf="@+id/home_address" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/home_option"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:focusable="true"
+                android:padding="6dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_more_item_card"
+                app:tint="@android:color/black" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ic_house"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="2dp"
+                android:focusable="true"
+                android:padding="6dp"
+                app:layout_constraintStart_toStartOf="@+id/home_name_ec"
+                app:layout_constraintTop_toBottomOf="@+id/home_name_ec"
+                app:srcCompat="@drawable/ic_location"
+                app:tint="@android:color/black" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

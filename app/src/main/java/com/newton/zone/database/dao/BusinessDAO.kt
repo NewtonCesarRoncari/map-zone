@@ -18,4 +18,7 @@ interface BusinessDAO {
 
     @Query("SELECT * FROM Business ORDER BY business.name")
     fun listAll(): LiveData<MutableList<Business>>
+
+    @Query("SELECT * FROM Business WHERE id = :businessId LIMIT 1")
+    fun findById(businessId: String): LiveData<Business>
 }
