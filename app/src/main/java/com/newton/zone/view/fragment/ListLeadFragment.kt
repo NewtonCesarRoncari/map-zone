@@ -2,9 +2,8 @@ package com.newton.zone.view.fragment
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.NavHostFragment
 import com.newton.zone.R
 import com.newton.zone.model.Business

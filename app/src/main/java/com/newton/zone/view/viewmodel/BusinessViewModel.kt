@@ -13,4 +13,6 @@ class BusinessViewModel(private val repository: BusinessRepository): ViewModel()
     fun listAll() = repository.listAll()
 
     fun findById(businessId: String) = repository.findById(businessId)
+
+    fun findBusinessFilter(query: String) = repository.findBusinessFilter(query)
 }

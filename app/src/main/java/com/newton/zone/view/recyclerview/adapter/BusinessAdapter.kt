@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.PopupMenu
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
@@ -17,14 +19,54 @@ import com.newton.zone.model.CLIENT
 import com.newton.zone.model.Type
 import com.newton.zone.view.recyclerview.adapter.BusinessAdapter.Constant.MAX_CHARACTER
 import kotlinx.android.synthetic.main.list_item_client_lead.view.*
+import java.util.*
 
 class BusinessAdapter(
     private val context: Context,
-    private val business: MutableList<Business>,
+    private var business: MutableList<Business>,
     var onItemClickPopupSend: (business: Business) -> Unit = {},
     var onItemClickPopupTurnClient: (business: Business) -> Unit = {},
     var onItemClickPopupVisit: (business: Business) -> Unit = {}
-) : RecyclerView.Adapter<BusinessAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<BusinessAdapter.MyViewHolder>(), Filterable {
+
+    private val businessListFull = business.toList()
+
+    //regionFilter
+    private val filter = object : Filter() {
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filteredList: MutableList<Business> = mutableListOf()
+
+            if (constraint.isNullOrEmpty()) {
+                filteredList.addAll(businessListFull)
+            } else {
+                val filterPattern = constraint.toString().toLowerCase(Locale.getDefault()).trim()
+
+                for (business1 in businessListFull) {
+                    if (business1.name.toLowerCase(Locale.getDefault()).contains(filterPattern)
+                        || business1.address.toLowerCase(Locale.getDefault()).contains(filterPattern)
+                        || business1.segment.toLowerCase(Locale.getDefault()).contains(filterPattern)) {
+                        filteredList.add(business1)
+                    }
+                }
+            }
+
+            val results = FilterResults()
+            results.values = filteredList
+            results.count = filteredList.size
+
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence, results: FilterResults) {
+            business = (results.values as List<*>).filterIsInstance<Business>() as MutableList<Business>
+            notifyDataSetChanged()
+        }
+    }
+
+    override fun getFilter(): Filter {
+        return filter
+    }
+    //endregion
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(context).inflate(

@@ -49,8 +49,8 @@ class HomeFragment : Fragment() {
 
     private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
     private val businessViewModel: BusinessViewModel by viewModel()
-    lateinit var mGoogleMap: GoogleMap
-    lateinit var locationRequest: LocationRequest
+    private lateinit var mGoogleMap: GoogleMap
+    private lateinit var locationRequest: LocationRequest
     var location: Location? = null
     internal var currentMaker: Marker? = null
     private val mFusedLocationClient by lazy {
@@ -327,5 +327,4 @@ class HomeFragment : Fragment() {
             )
         }
     }
-
 }

@@ -1,5 +1,7 @@
 package com.newton.zone.repository
 
+import androidx.lifecycle.LiveData
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.newton.zone.database.dao.BusinessDAO
 import com.newton.zone.model.Business
 import kotlinx.coroutines.CoroutineScope
@@ -19,4 +21,9 @@ class BusinessRepository(private val dao: BusinessDAO) {
     fun listAll() = dao.listAll()
 
     fun findById(businessId: String) = dao.findById(businessId)
+
+    fun findBusinessFilter(query: String): LiveData<MutableList<Business>> {
+        val simpleSQLiteQuery = SimpleSQLiteQuery(query)
+        return dao.findBusinessFilter(simpleSQLiteQuery)
+    }
 }

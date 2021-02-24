@@ -91,7 +91,7 @@ open class BaseListBusinessFragment : Fragment() {
         with(listAnimation) {
             scaleX = 0.5f
             scaleY = 0.5f
-            visibility = View.VISIBLE
+            visibility = VISIBLE
             playAnimation()
         }
     }
