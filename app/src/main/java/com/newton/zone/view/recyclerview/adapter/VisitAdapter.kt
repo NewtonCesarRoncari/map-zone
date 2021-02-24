@@ -9,6 +9,8 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.newton.zone.R
 import com.newton.zone.extension.formatForBrazilianDate
+import com.newton.zone.extension.formatForBrazilianDateDay
+import com.newton.zone.extension.formatForBrazilianDateMonth
 import com.newton.zone.extension.formatForBrazilianHour
 import com.newton.zone.model.Visit
 import kotlinx.android.synthetic.main.list_item_visit.view.*
@@ -76,16 +78,18 @@ class VisitAdapter(
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         private val date by lazy { itemView.item_visit_date }
+        private val month by lazy { itemView.item_visit_month }
         private val hour by lazy { itemView.item_visit_hour }
         private val segment by lazy { itemView.item_visit_segment }
         private val name by lazy { itemView.item_visit_name_ec }
         private val obs by lazy { itemView.item_visit_obs }
 
         fun bind(visit: Visit) {
-            date.text = visit.date.formatForBrazilianDate()
+            date.text = visit.date.formatForBrazilianDateDay()
+            month.text = visit.date.formatForBrazilianDateMonth()
             hour.text = visit.hour.formatForBrazilianHour()
             segment.text = visit.segment
-            name.text = visit.name
+            name.text = visit.name.toUpperCase(Locale.ROOT)
             obs.text = visit.observation
         }
     }

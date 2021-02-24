@@ -15,6 +15,7 @@ import com.newton.zone.model.CLIENT
 import com.newton.zone.model.Type
 import com.newton.zone.view.recyclerview.adapter.BusinessAdapter.Constant.MAX_CHARACTER
 import kotlinx.android.synthetic.main.list_item_client_lead.view.*
+import java.util.*
 
 class BusinessAdapter(
     private val context: Context,
@@ -53,6 +54,7 @@ class BusinessAdapter(
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val colorBar by lazy { itemView.item_business_id }
         private val name by lazy { itemView.list_item_name_ec }
+        private val textTag by lazy { itemView.txtTag }
         private val address by lazy { itemView.list_item_address }
         private val segment by lazy { itemView.list_item_segment }
         private val tpv by lazy { itemView.list_item_tpv }
@@ -63,6 +65,8 @@ class BusinessAdapter(
             this.business = business
             whenBusinessIsClient()
             name.text = business.name
+            name.text = business.name.toUpperCase(Locale.ROOT)
+            textTag.text = business.name[0].toString().toUpperCase()
             address.text = business.address.limit(MAX_CHARACTER)
             segment.text = business.segment
             tpv.text = business.tpv.formatCoin(context)

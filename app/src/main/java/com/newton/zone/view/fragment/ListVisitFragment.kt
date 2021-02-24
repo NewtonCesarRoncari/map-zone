@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_list_client.*
 import kotlinx.android.synthetic.main.fragment_list_visits.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class ListVisit: Fragment() {
+class ListVisitFragment: Fragment() {
 
     private val viewModel: VisitViewModel by viewModel()
     private lateinit var adapter: VisitAdapter
