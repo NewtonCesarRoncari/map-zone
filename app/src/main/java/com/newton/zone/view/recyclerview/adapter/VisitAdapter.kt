@@ -4,17 +4,59 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.newton.zone.R
 import com.newton.zone.extension.formatForBrazilianDate
 import com.newton.zone.extension.formatForBrazilianHour
 import com.newton.zone.model.Visit
 import kotlinx.android.synthetic.main.list_item_visit.view.*
+import java.util.*
 
 class VisitAdapter(
     private val context: Context,
-    private val visits: MutableList<Visit>,
-): RecyclerView.Adapter<VisitAdapter.MyViewHolder>() {
+    private var visits: MutableList<Visit>,
+): RecyclerView.Adapter<VisitAdapter.MyViewHolder>(), Filterable {
+
+    private val visitsFullList = visits.toList()
+
+    //regionFilter
+    private val filter = object : Filter() {
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filteredList: MutableList<Visit> = mutableListOf()
+
+            if (constraint.isNullOrEmpty()) {
+                filteredList.addAll(visitsFullList)
+            } else {
+                val filterPattern = constraint.toString().toLowerCase(Locale.getDefault()).trim()
+
+                for (visit in visitsFullList) {
+                    if (visit.name.toLowerCase(Locale.getDefault()).contains(filterPattern)
+                        || visit.address.toLowerCase(Locale.getDefault()).contains(filterPattern)
+                        || visit.segment.toLowerCase(Locale.getDefault()).contains(filterPattern)) {
+                        filteredList.add(visit)
+                    }
+                }
+            }
+
+            val results = FilterResults()
+            results.values = filteredList
+            results.count = filteredList.size
+
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence, results: FilterResults) {
+            visits = (results.values as List<*>).filterIsInstance<Visit>() as MutableList<Visit>
+            notifyDataSetChanged()
+        }
+    }
+
+    override fun getFilter(): Filter {
+        return filter
+    }
+    //endregion
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(context).inflate(

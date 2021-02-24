@@ -18,6 +18,8 @@ class BusinessRepository(private val dao: BusinessDAO) {
 
     fun update(business: Business) = scope.launch { dao.update(business) }
 
+    fun remove(business: Business) = scope.launch { dao.remove(business) }
+
     fun listAll() = dao.listAll()
 
     fun findById(businessId: String) = dao.findById(businessId)

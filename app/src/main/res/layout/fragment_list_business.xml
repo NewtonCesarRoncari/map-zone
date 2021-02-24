@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/design_default_color_secondary"
+        android:backgroundTint="@color/design_default_color_secondary_variant"
         android:contentDescription="@string/pin_register"
         android:text="@string/lead_register"
         android:textColor="@android:color/white"

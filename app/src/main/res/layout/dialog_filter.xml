@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         app:boxBackgroundColor="@android:color/white"
         app:boxCornerRadiusTopEnd="4dp"
@@ -51,7 +51,7 @@
         android:id="@+id/autoCompleteTextView_filter_address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         app:boxBackgroundColor="@android:color/white"
         app:boxCornerRadiusTopEnd="4dp"
         app:boxCornerRadiusTopStart="4dp"
@@ -74,10 +74,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dropDownTextView_filter_segment"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         app:boxBackgroundColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/autoCompleteTextView_filter_name"
         app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView_filter_address"
@@ -95,25 +95,24 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dropDownTextView_filter_cluster_tpv"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         app:boxBackgroundColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@+id/autoCompleteTextView_filter_address"
-        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView_filter_address"
-        app:startIconContentDescription="@string/choose_segment"
+        app:layout_constraintStart_toStartOf="@+id/dropDownTextView_filter_segment"
+        app:layout_constraintTop_toBottomOf="@+id/dropDownTextView_filter_segment"
+        app:startIconContentDescription="@string/tpv"
         app:startIconDrawable="@drawable/ic_tpv">
 
         <AutoCompleteTextView
             android:id="@+id/dropDownTextView_filter_cluster_tpv_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/choose_segment"
+            android:hint="@string/tpv"
             android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <Button
         android:id="@+id/dialog_filter_save_btn"

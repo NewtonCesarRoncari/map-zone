@@ -25,10 +25,6 @@ Y
 )app/src/main/res/drawable/ic_location.xml,3\9\39b22020c89ef8032129038bd44279b14cbfad3a
 L
 .idea/dictionaries/new12.xml,d\4\d49c1341e79f4114080ddab0cf55b20ceb6a846e
-R
-"app/src/main/res/values/themes.xml,e\b\eb7f0f821bde169dd21862705b2b042d2cea69a3
-X
-(app/src/main/res/values-night/themes.xml,8\c\8c3a6b96d9ffba496992e612d58227c19e6b9e65
 `
 0app/src/main/java/com/newton/zone/model/Visit.kt,4\4\44e9bc0ff94482c0ba266c5ef2882d8f613a0944
 c
@@ -51,6 +47,18 @@ b
 2app/src/main/java/com/newton/zone/model/Segment.kt,8\d\8d44e5fe4dee59c43e8965584c40a8973bc5f32e
 
 Oapp/src/main/java/com/newton/zone/view/fragment/FormBusinessRegisterFragment.kt,d\2\d2600567d7d71ad087607aa1a872c5b1cf849b0b
+m
+=app/src/main/java/com/newton/zone/database/dao/BusinessDAO.kt,f\f\ff8a08ce352ab014ef9f9ee5b4ab168566ec2ad9
+r
+Bapp/src/main/java/com/newton/zone/repository/BusinessRepository.kt,0\3\03fc650c90bad0ec843e0feb9f2ae89315e5a141
+u
+Eapp/src/main/java/com/newton/zone/view/viewmodel/BusinessViewModel.kt,c\0\c07afde104a9cec27aa2a9a2e2c366c16955b952
+V
+&app/src/main/res/values/font_certs.xml,8\7\8721b09acc6dcb831485a758e527a36efbbce1ff
+Z
+*app/src/main/res/drawable/ic_green_pin.xml,c\0\c038153b8a2b04f3dd103693a29533c09ce352eb
+[
++app/src/main/res/drawable/ic_purple_pin.xml,f\f\ff45d64959399dcc0f52294181fa202acfc2fc0a
 l
 <app/src/main/res/drawable/buttonshape_form_business_save.xml,c\2\c27f79f5cf00fa11beede9f38e84b152915eaef0
 `
@@ -69,8 +77,6 @@ r
 Bapp/src/main/java/com/newton/zone/database/converter/Converters.kt,8\0\802f5f99246dfe077c179d81196ccdafc394dda1
 p
 @app/src/main/java/com/newton/zone/extension/FragmentExtension.kt,6\d\6d4ca0d1ca386f54fa8cd4d56a67df2283186bca
-u
-Eapp/src/main/java/com/newton/zone/view/viewmodel/BusinessViewModel.kt,c\0\c07afde104a9cec27aa2a9a2e2c366c16955b952
 j
 :app/src/main/java/com/newton/zone/database/dao/VisitDAO.kt,9\1\91787750d90e87d549ceb2bdee2b468467dc9d80
 o
@@ -79,16 +85,10 @@ r
 Bapp/src/main/java/com/newton/zone/view/viewmodel/VisitViewModel.kt,5\f\5fd97b378ac6758747d3db3efc12d3f886336b1d
 r
 Bapp/src/main/java/com/newton/zone/extension/BigDecimalExtension.kt,b\7\b702e488f0e7bec59eb3b76679dbc8705ad184d3
-m
-=app/src/main/java/com/newton/zone/database/dao/BusinessDAO.kt,f\f\ff8a08ce352ab014ef9f9ee5b4ab168566ec2ad9
-r
-Bapp/src/main/java/com/newton/zone/repository/BusinessRepository.kt,0\3\03fc650c90bad0ec843e0feb9f2ae89315e5a141
 l
 <app/src/main/java/com/newton/zone/extension/DateExtension.kt,5\7\5747e74594d1ae82ee91cf3219fde68b9f482272
 k
 ;app/src/main/java/com/newton/zone/model/DatePickerHelper.kt,a\c\acc838c983253d2b46be1b3f1b02bd1c38a45865
-b
-2app/src/main/res/layout/fragment_list_business.xml,7\6\764b4ea061a59867ed10a1526bb6803af13a668c
 ^
 .app/src/main/res/layout/fragment_list_lead.xml,a\6\a64a6b176b4ac721fc5d15830f56552ba5c6e1d3
 _

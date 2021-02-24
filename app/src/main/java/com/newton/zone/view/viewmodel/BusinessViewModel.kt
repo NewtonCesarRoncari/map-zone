@@ -10,6 +10,8 @@ class BusinessViewModel(private val repository: BusinessRepository): ViewModel()
 
     fun update(business: Business) = repository.update(business)
 
+    fun remove(business: Business) = repository.remove(business)
+
     fun listAll() = repository.listAll()
 
     fun findById(businessId: String) = repository.findById(businessId)

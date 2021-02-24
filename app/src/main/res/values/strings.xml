@@ -35,4 +35,5 @@
     <string name="from">de</string>
     <string name="to">ate</string>
     <string name="to_filter">Filtrar</string>
+    <string name="remove">EXCLUIR</string>
 </resources>

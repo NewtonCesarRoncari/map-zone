@@ -5,8 +5,10 @@ import com.newton.zone.database.ConnectionDatabase
 import com.newton.zone.database.dao.BusinessDAO
 import com.newton.zone.database.dao.VisitDAO
 import com.newton.zone.repository.BusinessRepository
+import com.newton.zone.repository.FilterRepository
 import com.newton.zone.repository.VisitRepository
 import com.newton.zone.view.viewmodel.BusinessViewModel
+import com.newton.zone.view.viewmodel.FilterViewModel
 import com.newton.zone.view.viewmodel.StateAppComponentsViewModel
 import com.newton.zone.view.viewmodel.VisitViewModel
 import org.koin.android.viewmodel.dsl.viewModel
@@ -32,10 +34,12 @@ val daoModule = module {
 val repositoryModule = module {
     single<BusinessRepository> { BusinessRepository(dao = get()) }
     single<VisitRepository> { VisitRepository(dao = get()) }
+    single<FilterRepository> { FilterRepository(businessDAO = get()) }
 }
 
 val viewModelModule = module {
     viewModel<StateAppComponentsViewModel> { StateAppComponentsViewModel() }
     viewModel<BusinessViewModel> { BusinessViewModel(repository = get()) }
     viewModel<VisitViewModel> { VisitViewModel(repository = get()) }
+    viewModel<FilterViewModel> { FilterViewModel(repository = get()) }
 }

@@ -45,6 +45,9 @@ open class BaseListBusinessFragment : Fragment() {
             },
             onItemClickPopupVisit = { business ->
                 showVisitPopup(business)
+            },
+            onItemLongClickListener = { business ->
+                viewModel.remove(business)
             }
         ) }
         recyclerView.adapter = adapter

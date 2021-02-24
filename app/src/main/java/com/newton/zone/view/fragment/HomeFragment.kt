@@ -36,6 +36,7 @@ import com.newton.zone.model.Type
 import com.newton.zone.view.fragment.HomeFragment.Constant.MAX_CHARACTER
 import com.newton.zone.view.fragment.HomeFragment.Constant.REQUEST_LOCATION_PERMISSION
 import com.newton.zone.view.fragment.HomeFragment.Constant.TIME_INTERVAL
+import com.newton.zone.view.fragment.HomeFragment.Constant.ZOOMIN
 import com.newton.zone.view.viewmodel.BusinessViewModel
 import com.newton.zone.view.viewmodel.StateAppComponentsViewModel
 import com.newton.zone.view.viewmodel.VisualComponents
@@ -67,6 +68,7 @@ class HomeFragment : Fragment() {
         const val REQUEST_LOCATION_PERMISSION: Int = 99
         const val TIME_INTERVAL: Long = 120000
         const val MAX_CHARACTER = 28
+        const val ZOOMIN = 15.0F
     }
 
     override fun onCreateView(
@@ -142,7 +144,7 @@ class HomeFragment : Fragment() {
                 googleMap.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         getCoordinates(listOfBusiness.last().address),
-                        17.0F
+                        ZOOMIN
                     )
                 )
             }
@@ -287,7 +289,7 @@ class HomeFragment : Fragment() {
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                 currentMaker = googleMap.addMarker(markerOptions)
 
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0F))
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOMIN))
             }
         }
     }
