@@ -76,11 +76,22 @@ class ListBusinessFragment : Fragment() {
     private fun initFilterDialog() {
         FilterDialog(
             requireContext(),
-            loadNameEc = {nameECAutoCompleteTextView -> loadAllECNames(requireContext(), nameECAutoCompleteTextView)},
-            loadAddress = {addressAutoCompleteTextView -> loadAllAddress(requireContext(), addressAutoCompleteTextView)},
+            loadNameEc = { nameECAutoCompleteTextView ->
+                loadAllECNames(
+                    requireContext(),
+                    nameECAutoCompleteTextView
+                )
+            },
+            loadAddress = { addressAutoCompleteTextView ->
+                loadAllAddress(
+                    requireContext(),
+                    addressAutoCompleteTextView
+                )
+            },
             returnQuery = { query -> viewModel.findBusinessFilter(query) }
         ).showFilterDialog()
     }
+
     private fun loadAllAddress(
         context: Context,
         addressAutoCompleteTextView: AutoCompleteTextView

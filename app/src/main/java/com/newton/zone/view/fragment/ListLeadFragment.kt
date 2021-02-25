@@ -10,6 +10,7 @@ import com.newton.zone.model.Business
 import com.newton.zone.model.LEAD
 import com.newton.zone.model.Type
 import com.newton.zone.view.viewmodel.BusinessViewModel
+import kotlinx.android.synthetic.main.fragment_list_client.*
 import kotlinx.android.synthetic.main.fragment_list_lead.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -32,6 +33,14 @@ class ListLeadFragment : BaseListBusinessFragment() {
         viewModel.listAll().observe(viewLifecycleOwner, { business ->
             if (business != null) {
                 val dataList = business.filter { it.type == @Type LEAD }
+                super.ifEmptyPlayAnimation(dataList, lead_list_animation)
+                super.initAdapter(dataList as MutableList<Business>, lead_rv)
+            }
+        })
+
+        viewModel.checkBusinessReturned().observe(viewLifecycleOwner, { businessList ->
+            if (businessList != null) {
+                val dataList = businessList.filter { it.type == @Type LEAD }
                 super.ifEmptyPlayAnimation(dataList, lead_list_animation)
                 super.initAdapter(dataList as MutableList<Business>, lead_rv)
             }

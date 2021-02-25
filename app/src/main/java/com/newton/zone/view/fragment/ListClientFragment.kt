@@ -34,6 +34,14 @@ class ListClientFragment : BaseListBusinessFragment() {
                 super.initAdapter(dataList as MutableList<Business>, client_rv)
             }
         })
+
+        viewModel.checkBusinessReturned().observe(viewLifecycleOwner, { businessList ->
+            if (businessList != null) {
+                val dataList = businessList.filter { it.type == @Type CLIENT }
+                super.ifEmptyPlayAnimation(dataList, client_list_animation)
+                super.initAdapter(dataList as MutableList<Business>, client_rv)
+            }
+        })
     }
 
 }

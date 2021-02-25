@@ -7,12 +7,12 @@ import java.util.*
 class Converters {
 
     @TypeConverter
-    fun forBigDecimal(value: BigDecimal?): String {
-        return value?.toString() ?: ""
+    fun forBigDecimal(value: BigDecimal?): Double {
+        return  value?.toDouble() ?: 0.0
     }
 
     @TypeConverter
-    fun forString(value: String?): BigDecimal {
+    fun forString(value: Double?): BigDecimal {
         return value?.let { BigDecimal(it) } ?: BigDecimal.ZERO
     }
 

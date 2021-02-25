@@ -1,5 +1,6 @@
 package com.newton.zone.view.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.newton.zone.model.Business
 import com.newton.zone.repository.BusinessRepository
@@ -17,4 +18,6 @@ class BusinessViewModel(private val repository: BusinessRepository): ViewModel()
     fun findById(businessId: String) = repository.findById(businessId)
 
     fun findBusinessFilter(query: String) = repository.findBusinessFilter(query)
+
+    fun checkBusinessReturned(): LiveData<MutableList<Business>> = repository.businessReturned
 }

@@ -1,6 +1,7 @@
 package com.newton.zone.database.dao
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.newton.zone.model.Business
@@ -30,5 +31,5 @@ interface BusinessDAO {
     fun returnAllAddress(): LiveData<List<String>>
 
     @RawQuery(observedEntities = [Business::class])
-    fun findBusinessFilter(query: SupportSQLiteQuery): LiveData<MutableList<Business>>
+    fun findBusinessFilter(query: SupportSQLiteQuery): MutableList<Business>
 }

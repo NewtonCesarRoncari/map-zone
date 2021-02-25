@@ -65,7 +65,9 @@ class FilterDialog(
             R.layout.list_item,
             itemsDropdownTPV
         )
-        (view.dropDownTextView_filter_cluster_tpv.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+        (view.dropDownTextView_filter_cluster_tpv.editText as? AutoCompleteTextView)?.setAdapter(
+            adapter
+        )
     }
 
     private fun loadSegmentFiled() {
@@ -103,8 +105,16 @@ class FilterDialog(
                 view.dropDownTextView_filter_segment_edit.text.toString().trim()
         }
         if (view.dropDownTextView_filter_cluster_tpv_edit.text.toString().trim().isNotEmpty()) {
-            params[@Params TPV] =
-                view.dropDownTextView_filter_cluster_tpv_edit.text.toString().trim()
+            val tpv = when {
+                view.dropDownTextView_filter_cluster_tpv_edit.text.toString().trim() == MINUS -> {
+                    "< '10000'"
+                }
+                view.dropDownTextView_filter_cluster_tpv_edit.text.toString().trim() == MORE -> {
+                    "> '20000'"
+                }
+                else -> { ">= '10000' AND tpv <= '20000'" }
+            }
+            params[@Params TPV] = tpv
         }
         return params
     }

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Build
@@ -36,14 +37,17 @@ import com.newton.zone.model.Type
 import com.newton.zone.view.fragment.HomeFragment.Constant.MAX_CHARACTER
 import com.newton.zone.view.fragment.HomeFragment.Constant.REQUEST_LOCATION_PERMISSION
 import com.newton.zone.view.fragment.HomeFragment.Constant.TIME_INTERVAL
-import com.newton.zone.view.fragment.HomeFragment.Constant.ZOOMIN
+import com.newton.zone.view.fragment.HomeFragment.Constant.ZOOM_IN
 import com.newton.zone.view.viewmodel.BusinessViewModel
 import com.newton.zone.view.viewmodel.StateAppComponentsViewModel
 import com.newton.zone.view.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.lang.Exception
 import java.lang.IndexOutOfBoundsException
+import java.lang.RuntimeException
+import java.lang.reflect.InvocationTargetException
 
 
 class HomeFragment : Fragment() {
@@ -68,7 +72,7 @@ class HomeFragment : Fragment() {
         const val REQUEST_LOCATION_PERMISSION: Int = 99
         const val TIME_INTERVAL: Long = 120000
         const val MAX_CHARACTER = 28
-        const val ZOOMIN = 15.0F
+        const val ZOOM_IN = 9.0F
     }
 
     override fun onCreateView(
@@ -135,18 +139,32 @@ class HomeFragment : Fragment() {
                 val latLng = getCoordinates(business.address)
                 if (latLng != null)
                     if (business.type == @Type LEAD) {
-                        markPin(googleMap, business, latLng, com.newton.zone.R.drawable.ic_green_pin)
+                        markPin(
+                            googleMap,
+                            business,
+                            latLng,
+                            com.newton.zone.R.drawable.ic_green_pin
+                        )
                     } else if (business.type == @Type CLIENT) {
-                        markPin(googleMap, business, latLng, com.newton.zone.R.drawable.ic_purple_pin)
+                        markPin(
+                            googleMap,
+                            business,
+                            latLng,
+                            com.newton.zone.R.drawable.ic_purple_pin
+                        )
                     }
             }
             if (listOfBusiness.isNotEmpty()) {
-                googleMap.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                        getCoordinates(listOfBusiness.last().address),
-                        ZOOMIN
+                try {
+                    googleMap.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            getCoordinates(listOfBusiness.last().address),
+                            ZOOM_IN
+                        )
                     )
-                )
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -258,15 +276,18 @@ class HomeFragment : Fragment() {
 
     private fun getCoordinates(address: String): LatLng? {
         val location = Geocoder(requireContext())
-        val fromLocationName = location.getFromLocationName(
-            address,
-            1
-        )
+        val fromLocationName: List<Address>
+        try {
+            fromLocationName = location.getFromLocationName(address, 1)
+        } catch (error: Exception) {
+            error.printStackTrace()
+            return null
+        }
         return try {
             LatLng(fromLocationName[0].latitude, fromLocationName[0].longitude)
         } catch (error: IndexOutOfBoundsException) {
             error.printStackTrace()
-            return null
+            null
         }
     }
 
@@ -289,7 +310,7 @@ class HomeFragment : Fragment() {
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                 currentMaker = googleMap.addMarker(markerOptions)
 
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOMIN))
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM_IN))
             }
         }
     }

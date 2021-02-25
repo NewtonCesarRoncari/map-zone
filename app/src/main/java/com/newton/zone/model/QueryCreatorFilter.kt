@@ -2,13 +2,18 @@ package com.newton.zone.model
 
 class QueryCreatorFilter() {
 
-    fun returnByParams(params: HashMap<String, String>, table:String): String {
+    fun returnByParams(params: HashMap<String, String>, table: String): String {
         var query = "SELECT * FROM $table"
 
         if (params.isNotEmpty()) {
             query += " WHERE "
             params.forEach { map ->
-                query += "${map.key} = '${map.value}' AND "
+
+                query += if (map.key == @Params TPV) {
+                    "${map.key} ${map.value} AND "
+                } else {
+                    "${map.key} = '${map.value}' AND "
+                }
             }
         }
         return removeLastAnd(query, params)

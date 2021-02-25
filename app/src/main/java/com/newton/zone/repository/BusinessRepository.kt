@@ -1,6 +1,6 @@
 package com.newton.zone.repository
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.newton.zone.database.dao.BusinessDAO
 import com.newton.zone.model.Business
@@ -13,6 +13,7 @@ class BusinessRepository(private val dao: BusinessDAO) {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.IO + job)
+    var businessReturned = MutableLiveData<MutableList<Business>>().apply { postValue(null) }
 
     fun insert(business: Business) = scope.launch { dao.insert(business) }
 
@@ -24,8 +25,13 @@ class BusinessRepository(private val dao: BusinessDAO) {
 
     fun findById(businessId: String) = dao.findById(businessId)
 
-    fun findBusinessFilter(query: String): LiveData<MutableList<Business>> {
+    fun findBusinessFilter(query: String) {
+        var business = mutableListOf<Business>()
         val simpleSQLiteQuery = SimpleSQLiteQuery(query)
-        return dao.findBusinessFilter(simpleSQLiteQuery)
+        scope.launch {
+            business = dao.findBusinessFilter(simpleSQLiteQuery)
+        }
+        Thread.sleep(1000)
+        businessReturned.value = business
     }
 }
