@@ -8,7 +8,6 @@ class QueryCreatorFilter() {
         if (params.isNotEmpty()) {
             query += " WHERE "
             params.forEach { map ->
-
                 query += if (map.key == @Params TPV) {
                     "${map.key} ${map.value} AND "
                 } else {

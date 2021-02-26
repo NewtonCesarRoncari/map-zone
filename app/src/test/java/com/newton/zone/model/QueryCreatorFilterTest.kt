@@ -11,25 +11,25 @@ class QueryCreatorFilterTest {
     fun returnSQLByParamsWhenNoHaveParams() {
         val params = hashMapOf<String, String>()
         assertEquals(
-            "SELECT * FROM BUSINESS",
+            "SELECT * FROM BUSINESS WHERE 1 = 1",
             queryCreatorFilterTest.returnByParams(params, "BUSINESS")
         )
     }
 
     @Test
     fun returnSQLByParamsWhenOnlyHaveName() {
-        val params = hashMapOf(@Params NAME to "test")
+        val params = hashMapOf(NAME to "test")
         assertEquals(
-            "SELECT * FROM BUSINESS WHERE name = 'test'",
+            "SELECT * FROM BUSINESS WHERE 1 = 1 AND name = 'test'",
             queryCreatorFilterTest.returnByParams(params, "BUSINESS")
         )
     }
 
     @Test
     fun returnSQLByParamsWhenOnlyHaveAddress() {
-        val params = hashMapOf(@Params ADDRESS to "AddressTest")
+        val params = hashMapOf(ADDRESS to "AddressTest")
         assertEquals(
-            "SELECT * FROM BUSINESS WHERE address = 'AddressTest'",
+            "SELECT * FROM BUSINESS WHERE 1 = 1 AND address = 'AddressTest'",
             queryCreatorFilterTest.returnByParams(params, "BUSINESS")
         )
     }
@@ -38,16 +38,34 @@ class QueryCreatorFilterTest {
     fun returnSQLByParamsWhenOnlyHaveType() {
         val params = hashMapOf(@Params TYPE to "CLIENT")
         assertEquals(
-            "SELECT * FROM BUSINESS WHERE type = 'CLIENT'",
+            "SELECT * FROM BUSINESS WHERE 1 = 1 AND type = 'CLIENT'",
             queryCreatorFilterTest.returnByParams(params, "BUSINESS")
         )
     }
 
     @Test
-    fun returnSQLByParamsWhenOnlyHaveTPV() {
-        val params = hashMapOf(@Params TPV to "10.5")
+    fun returnSQLByParamsWhenTPVIsBetweenCluster() {
+        val params = hashMapOf(@Params TPV to ">= '10000' AND tpv <= '20000'")
         assertEquals(
-            "SELECT * FROM BUSINESS WHERE tpv = '10.5'",
+            "SELECT * FROM BUSINESS WHERE 1 = 1 AND tpv >= '10000' AND tpv <= '20000'",
+            queryCreatorFilterTest.returnByParams(params, "BUSINESS")
+        )
+    }
+
+    @Test
+    fun returnSQLByParamsWhenTPVIsDownCluster() {
+        val params = hashMapOf(@Params TPV to "< '10000'")
+        assertEquals(
+            "SELECT * FROM BUSINESS WHERE 1 = 1 AND tpv < '10000'",
+            queryCreatorFilterTest.returnByParams(params, "BUSINESS")
+        )
+    }
+
+    @Test
+    fun returnSQLByParamsWhenTPVIsUpCluster() {
+        val params = hashMapOf(@Params TPV to "> '20000'")
+        assertEquals(
+            "SELECT * FROM BUSINESS WHERE 1 = 1 AND tpv > '20000'",
             queryCreatorFilterTest.returnByParams(params, "BUSINESS")
         )
     }
@@ -56,7 +74,7 @@ class QueryCreatorFilterTest {
     fun returnSQLByParamsWhenOnlyHaveSegment() {
         val params = hashMapOf(@Params SEGMENT to "DELIVERY")
         assertEquals(
-            "SELECT * FROM BUSINESS WHERE segment = 'DELIVERY'",
+            "SELECT * FROM BUSINESS WHERE 1 = 1 AND segment = 'DELIVERY'",
             queryCreatorFilterTest.returnByParams(params, "BUSINESS")
         )
     }
@@ -68,7 +86,7 @@ class QueryCreatorFilterTest {
             @Params ADDRESS to "Rua dos Bobos"
         )
         assertEquals(
-            "SELECT * FROM BUSINESS WHERE name = 'NameTest' AND" +
+            "SELECT * FROM BUSINESS WHERE 1 = 1 AND name = 'NameTest' AND" +
                     " address = 'Rua dos Bobos'",
             queryCreatorFilterTest.returnByParams(params, "BUSINESS")
         )
@@ -82,7 +100,7 @@ class QueryCreatorFilterTest {
             @Params TYPE to "LEAD"
         )
         assertEquals(
-            "SELECT * FROM BUSINESS WHERE name = 'NameTest' AND" +
+            "SELECT * FROM BUSINESS WHERE 1 = 1 AND name = 'NameTest' AND" +
                     " address = 'Rua dos Bobos' AND" +
                     " type = 'LEAD'",
             queryCreatorFilterTest.returnByParams(params, "BUSINESS")

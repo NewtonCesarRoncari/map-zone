@@ -12,7 +12,7 @@ class Converters {
     }
 
     @TypeConverter
-    fun forString(value: Double?): BigDecimal {
+    fun forDouble(value: Double?): BigDecimal {
         return value?.let { BigDecimal(it) } ?: BigDecimal.ZERO
     }
 
