@@ -37,4 +37,8 @@
     <string name="to_filter">Filtrar</string>
     <string name="remove">EXCLUIR</string>
     <string name="format_only_day">00</string>
+    <string name="filter_leads">filtra leads</string>
+    <string name="filter_clients">filtra clientes</string>
+    <string name="icon_purple_pin">icon purple pin</string>
+    <string name="t">T</string>
 </resources>

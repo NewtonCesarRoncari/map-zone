@@ -64,10 +64,9 @@ class BusinessAdapter(
         fun bind(business: Business) {
             this.business = business
             whenBusinessIsClient()
-            name.text = business.name
             name.text = business.name.toUpperCase(Locale.ROOT)
-            textTag.text = business.name[0].toString().toUpperCase()
-            address.text = business.address.limit(MAX_CHARACTER)
+            textTag.text = business.name[0].toString().toUpperCase(Locale.ROOT)
+            address.text = business.address
             segment.text = business.segment
             tpv.text = business.tpv.formatCoin(context)
         }

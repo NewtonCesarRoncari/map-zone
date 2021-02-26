@@ -46,14 +46,15 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.lang.Exception
 import java.lang.IndexOutOfBoundsException
-import java.lang.RuntimeException
-import java.lang.reflect.InvocationTargetException
+import java.util.*
 
 
 class HomeFragment : Fragment() {
 
     private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
     private val businessViewModel: BusinessViewModel by viewModel()
+    private var markers = mutableListOf<Marker>()
+    private var business = listOf<Business>()
     private lateinit var mGoogleMap: GoogleMap
     private lateinit var locationRequest: LocationRequest
     var location: Location? = null
@@ -111,6 +112,29 @@ class HomeFragment : Fragment() {
         configMap(googleMap)
         showBusinessPins(googleMap)
         onMarkerClickListener(googleMap)
+        onBtnFilterLeadClickListener()
+        onBtnFilterClientClickListener()
+    }
+
+    private fun onBtnFilterClientClickListener() {
+        home_fragment_client_btn.setOnClickListener {
+            setInvisibleAndShowAlso(@Type LEAD)
+        }
+    }
+
+    private fun onBtnFilterLeadClickListener() {
+        home_fragment_lead_btn.setOnClickListener {
+            setInvisibleAndShowAlso(@Type CLIENT)
+        }
+    }
+
+    private fun setInvisibleAndShowAlso(typeInvisible: String) {
+        markers.forEach { marker ->
+            business.forEach { business ->
+                if (business.id == marker.tag && business.type == typeInvisible)
+                    marker.isVisible = marker.isVisible != true
+            }
+        }
     }
 
     private fun onMarkerClickListener(googleMap: GoogleMap?) {
@@ -125,8 +149,9 @@ class HomeFragment : Fragment() {
 
     private fun initViews(tag: Any?) {
         businessViewModel.findById(tag as String).observe(viewLifecycleOwner, { business ->
-            home_name_ec.text = business.name
-            home_address.text = business.address.limit(MAX_CHARACTER)
+            home_name_ec.text = business.name.toUpperCase(Locale.ROOT)
+            txtTag.text = business.name[0].toString().toUpperCase(Locale.ROOT)
+            home_address.text = business.address
             home_segment.text = business.segment
             home_tpv.text = business.tpv.formatCoin(requireContext())
             whenBusinessIsClient(business)
@@ -135,6 +160,7 @@ class HomeFragment : Fragment() {
 
     private fun showBusinessPins(googleMap: GoogleMap) {
         businessViewModel.listAll().observe(viewLifecycleOwner) { listOfBusiness ->
+            business = listOfBusiness
             for (business in listOfBusiness) {
                 val latLng = getCoordinates(business.address)
                 if (latLng != null)
@@ -182,6 +208,7 @@ class HomeFragment : Fragment() {
                 .icon(bitmapDescriptorFromVector(requireActivity(), icImagePin))
         )
         marker.tag = business.id
+        markers.add(marker)
     }
 
     private fun configMap(googleMap: GoogleMap) {
