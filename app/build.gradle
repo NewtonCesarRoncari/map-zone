@@ -51,6 +51,7 @@ dependencies {
 
     // Mockito
     testImplementation 'org.mockito:mockito-core:2.22.0'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
     androidTestImplementation 'androidx.test:rules:1.4.0-alpha04'
 
     //noinspection GradleDependency ------ wait a stable version

@@ -3,24 +3,17 @@ package com.newton.zone.model
 class QueryCreatorFilter() {
 
     fun returnByParams(params: HashMap<String, String>, table: String): String {
-        var query = "SELECT * FROM $table"
+        var query = "SELECT * FROM $table WHERE 1 = 1"
 
         if (params.isNotEmpty()) {
-            query += " WHERE "
             params.forEach { map ->
                 query += if (map.key == @Params TPV) {
-                    "${map.key} ${map.value} AND "
+                    " AND ${map.key} ${map.value}"
                 } else {
-                    "${map.key} = '${map.value}' AND "
+                    " AND ${map.key} = '${map.value}'"
                 }
             }
         }
-        return removeLastAnd(query, params)
-    }
-
-    private fun removeLastAnd(query: String, params: java.util.HashMap<String, String>): String {
-        return if (params.isNotEmpty()) {
-            query.substring(0, query.length - 5)
-        } else query
+        return query
     }
 }
