@@ -1,0 +1,38 @@
+INSERT INTO BUSINESS (id, name, address, type, tpv, segment) VALUES
+ ('968401c6-7786-11eb-9439-0242ac130002', 'Mac Supermercado', 'R Benjamin Martins do Espírito Santo, 2044, Parque Dona Gumercinda - Nova Serrana, MG', 'LEAD', '18000.0', 'MARKETPLACE'),
+ ('a3bea666-7786-11eb-9439-0242ac130002', 'Farmacia OneMan', 'R Francisco Fonseca, 26, Centro - Nova Serrana, MG', 'LEAD', '25000.0', 'TECONOLOGIA'),
+ ('a3bea8be-7786-11eb-9439-0242ac130002', 'Tinturaria Chrome', 'R Francisco Fonseca, 12 - Ter, Centro - Nova Serrana, MG', 'LEAD', '452202.0', 'RESTAURANTE'),
+ ('a3bea9ae-7786-11eb-9439-0242ac130002', 'Estabelecimento Ideias', 'R Francisco Fonseca, 101, Centro - Nova Serrana, MG', 'LEAD', '1800000.0', 'VENDA'),
+ ('a3beacb0-7786-11eb-9439-0242ac130002', 'TopRated Vendas', 'R Francisco Fonseca, - Ter, Centro - Nova Serrana, MG', 'LEAD', '95585.0', 'TECONOLOGIA'),
+ ('a3bead78-7786-11eb-9439-0242ac130002', 'Bijuteria Metro', 'R Manoel Pinto, 186, Centro - Nova Serrana, MG', 'LEAD', '98552141.0', 'OUTROS'),
+ ('a3beae2c-7786-11eb-9439-0242ac130002', 'Golden Utilidades', 'R Manoel Pinto, 245, Vila Pacífico Pinto - Nova Serrana, MG', 'LEAD', '220222.0', 'MARKETPLACE'),
+ ('a3beaee0-7786-11eb-9439-0242ac130002', 'Oficina Convergence', 'R 3 Francisco Fonseca, 109, Vila Olaria - Nova Serrana, MG', 'LEAD', '14111.58', 'DELIVERY'),
+ ('a3beaf8a-7786-11eb-9439-0242ac130002', 'Offset Estilos', 'Tv Treze de Maio, 100, Centro - Nova Serrana, MG', 'LEAD', '25000.0', 'BIBLIOTECA'),
+ ('a3beb03e-7786-11eb-9439-0242ac130002', 'Serafine Homulo Camisetas', 'Tv Treze de Maio, 86, Centro - Nova Serrana, MG', 'LEAD', '90.71', 'EMPRESARIAL'),
+ ('a3beb0f2-7786-11eb-9439-0242ac130002', 'CALCADOS ADDAN LTDA.', 'R Treze de Maio, 68, Centro - Nova Serrana, MG', 'LEAD', '10058200.0', 'DELIVERY'),
+ ('d5033930-7786-11eb-9439-0242ac130002', 'INDUSTRIA DE CALCADOS PLUMA LTDA.', 'R São José, 155, Centro - Nova Serrana, MG', 'CLIENT', '9822210.22', 'MARKETPLACE'),
+ ('d5033b92-7786-11eb-9439-0242ac130002', 'Housen Blowser Comercio', 'R São José, 17 - Lj 4, Centro - Nova Serrana, MG', 'CLIENT', '18000.11', 'VENDA'),
+ ('d5033c82-7786-11eb-9439-0242ac130002', 'Fiber Papelaria', 'Av Padre Lauro, 107 - Ter, Centro - Nova Serrana, MG', 'CLIENT', '25.50', 'VENDA'),
+ ('d5034380-7786-11eb-9439-0242ac130002', 'Permanent Ambulantes', 'Av Padre Lauro, 23, Centro - Nova Serrana, MG', 'CLIENT', '99200.0', 'TECONOLOGIA'),
+ ('d50346a0-7786-11eb-9439-0242ac130002', 'Plus Mobiles', 'Av Padre Lauro, 85, Centro - Nova Serrana, MG', 'LEAD', '982200.32', 'RESTAURANTE'),
+ ('d503477c-7786-11eb-9439-0242ac130002', 'Westside Viagens', 'R Marechal Deodoro, 41, Centro - Nova Serrana, MG', 'CLIENT', '855500.0', 'EMPRESARIAL'),
+ ('d503483a-7786-11eb-9439-0242ac130002', 'Scoop Banco Certo', 'R Antônio Martins, 185 - Sl 8, Centro - Nova Serrana, MG', 'CLIENT', '90001400.25', 'DELIVERY'),
+ ('d50348f8-7786-11eb-9439-0242ac130002', 'Groove Sons e Musicais', 'R Guarani, 252, Marisa - Nova Serrana, MG', 'CLIENT', '1844100.30', 'OUTROS'),
+ ('d50349ac-7786-11eb-9439-0242ac130002', 'Close up fotografias', 'R Antônio Martins, 1428 - Ap 101, Bela Vista - Nova Serrana, MG', 'LEAD', '9900.99', 'DELIVERY'),
+ ('d5034a60-7786-11eb-9439-0242ac130002', 'Lab Free exames', 'R Celestina Maria, 505 - PROLONGAMENTO, Prolg Bela Vista - Nova Serrana, MG', 'CLIENT', '85000.90', 'BIBLIOTECA'),
+ ('02d17d68-7787-11eb-9439-0242ac130002', 'Plexus Cards', 'R Celestina Maria, 89, Operário - Nova Serrana, MG', 'CLIENT', '855520.0', 'RESTAURANTE'),
+ ('02d17fd4-7787-11eb-9439-0242ac130002', 'Kibon Sorveteria', 'R Martinho Ferreira do Amaral, 701, Centro - Nova Serrana, MG', 'CLIENT', '40090.0', 'TECONOLOGIA');
+ 
+INSERT INTO Visit (id, name, address, segment, date, hour, observation, business_id) VALUES
+ ('a3bea666-7786-11eb-9439-0242ac134202', 'Mac Supermercado', 'R Benjamin Martins do Espírito Santo, 2044, Parque Dona Gumercinda - Nova Serrana, MG', 'MARKETPLACE', '1614222000000', '1614288659194', 'Terceira Visita de Rotina', '968401c6-7786-11eb-9439-0242ac130002'), 
+ ('13e53fb8-778c-11eb-9439-0242ac130002', 'Tinturaria Chrome', 'R Francisco Fonseca, 12 - Ter, Centro - Nova Serrana, MG', 'MARKETPLACE', '1618022000000', '1618088659194', 'Assinatura de Formulario', 'a3bea8be-7786-11eb-9439-0242ac130002'),
+ ('13e5421a-778c-11eb-9439-0242ac130002', 'Kibon Sorveteria', 'R Martinho Ferreira do Amaral, 701, Centro - Nova Serrana, MG', 'MARKETPLACE', '1614922000000', '1614988659194', 'Cliente em acompanhamento', '02d17fd4-7787-11eb-9439-0242ac130002'),
+ ('13e5430a-778c-11eb-9439-0242ac130002', 'Plexus Cards', 'R Celestina Maria, 89, Operário - Nova Serrana, MG', 'MARKETPLACE', '1617222000000', '1617288659194', '', '02d17d68-7787-11eb-9439-0242ac130002'),
+ ('13e54440-778c-11eb-9439-0242ac130002', 'Mac Supermercado', 'R Benjamin Martins do Espírito Santo, 2044, Parque Dona Gumercinda - Nova Serrana, MG', 'MARKETPLACE', '1614222000000', '1614288659194', 'Visita Rotineira', '968401c6-7786-11eb-9439-0242ac130002'),
+ ('13e54620-778c-11eb-9439-0242ac130002', 'Groove Sons e Musicais', 'R Guarani, 252, Marisa - Nova Serrana, MG', 'MARKETPLACE', '1614922000000', '1618288659194', '', 'd50348f8-7786-11eb-9439-0242ac130002'),
+ ('13e546e8-778c-11eb-9439-0242ac130002', 'Bijuteria Metro', 'R Manoel Pinto, 186, Centro - Nova Serrana, MG', 'MARKETPLACE', '1614922000000', '1614268659194', 'Interesse de aumento de plano', 'a3bead78-7786-11eb-9439-0242ac130002'),
+ ('13e5479c-778c-11eb-9439-0242ac130002', 'Mac Supermercado', 'R Benjamin Martins do Espírito Santo, 2044, Parque Dona Gumercinda - Nova Serrana, MG', 'MARKETPLACE', '1614222000000', '1614288659194', '', '968401c6-7786-11eb-9439-0242ac130002'),
+ ('13e54878-778c-11eb-9439-0242ac130002', 'Fiber Papelaria', 'Av Padre Lauro, 107 - Ter, Centro - Nova Serrana, MG', 'MARKETPLACE', '1612222000000', '1611288659194', 'Observações Visita Teste', 'd5033c82-7786-11eb-9439-0242ac130002'),
+ ('13e54b34-778c-11eb-9439-0242ac130002', 'Mac Supermercado', 'R Benjamin Martins do Espírito Santo, 2044, Parque Dona Gumercinda - Nova Serrana, MG', 'MARKETPLACE', '1614622000000', '1611288659194', 'Entrega de máquina', '968401c6-7786-11eb-9439-0242ac130002');
+ 
+ 
