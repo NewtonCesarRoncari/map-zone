@@ -43,13 +43,16 @@ dependencies {
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // Mockito
     testImplementation 'org.mockito:mockito-core:2.22.0'
-    androidTestImplementation 'androidx.test:rules:1.3.1-alpha03'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0-alpha04'
 
     //noinspection GradleDependency ------ wait a stable version
     debugImplementation("androidx.fragment:fragment-testing:1.3.0-beta01")
@@ -98,6 +101,6 @@ dependencies {
     def room_version = "2.2.5"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
     testImplementation "androidx.room:room-testing:$room_version"
 }

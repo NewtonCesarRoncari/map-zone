@@ -9,5 +9,31 @@
         android:id="@+id/homeFragment"
         android:name="com.newton.zone.view.fragment.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_formBusinessRegisterFragment"
+            app:destination="@id/formBusinessRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/formBusinessRegisterFragment"
+        android:name="com.newton.zone.view.fragment.FormBusinessRegisterFragment"
+        android:label="Cadastro de lead"
+        tools:layout="@layout/fragment_business_form" />
+    <fragment
+        android:id="@+id/listBusiness"
+        android:name="com.newton.zone.view.fragment.ListBusinessFragment"
+        android:label="Leads e Clientes"
+        tools:layout="@layout/fragment_list_business">
+        <action
+            android:id="@+id/action_listBusiness_to_formBusinessRegisterFragment"
+            app:destination="@id/formBusinessRegisterFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/formBusinessRegisterFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/listVisit"
+        android:name="com.newton.zone.view.fragment.ListVisitFragment"
+        android:label="Visitas"
+        tools:layout="@layout/fragment_list_visits"/>
 </navigation>
