@@ -22,6 +22,8 @@ Cadastro de Lead            |  Filtros
 :-------------------------:|:-------------------------:
 <img src="https://github.com/NewtonCesarRoncari/map-zone/blob/develop/map_imgs/register_lead_screen.PNG" width="250" height="560" title="Cadastro de Lead"/> | <img src="https://github.com/NewtonCesarRoncari/map-zone/blob/develop/map_imgs/filter_business_screen.PNG" width="250" height="560" title="Filtros"/>
 
+- Caso queira, é possível realizar o <a href="https://github.com/NewtonCesarRoncari/map-zone/raw/develop/apk/map-zone.rar">download da apk<a/> 
+
 ### Bibliotecas
 
 - Material Design
