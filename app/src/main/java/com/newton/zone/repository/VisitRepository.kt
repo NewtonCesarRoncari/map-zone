@@ -17,6 +17,4 @@ class VisitRepository(private val dao: VisitDAO) {
     fun update(visit: Visit) = scope.launch { dao.update(visit) }
 
     fun listAll() = dao.listAll()
-
-    fun findVisitByBusinessId(businessId: String) = dao.findVisitByBusinessId(businessId)
 }

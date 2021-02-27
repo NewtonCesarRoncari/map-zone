@@ -9,11 +9,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.newton.zone.R
 import com.newton.zone.extension.formatCoin
-import com.newton.zone.extension.limit
 import com.newton.zone.model.Business
 import com.newton.zone.model.CLIENT
 import com.newton.zone.model.Type
-import com.newton.zone.view.recyclerview.adapter.BusinessAdapter.Constant.MAX_CHARACTER
 import kotlinx.android.synthetic.main.list_item_client_lead.view.*
 import java.util.*
 
@@ -68,7 +66,7 @@ class BusinessAdapter(
             textTag.text = business.name[0].toString().toUpperCase(Locale.ROOT)
             address.text = business.address
             segment.text = business.segment
-            tpv.text = business.tpv.formatCoin(context)
+            tpv.text = business.tpv.formatCoin()
         }
 
         private fun whenBusinessIsClient() {
@@ -120,9 +118,4 @@ class BusinessAdapter(
             }
         }
     }
-
-    private object Constant {
-        const val MAX_CHARACTER = 28
-    }
-
 }

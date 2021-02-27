@@ -18,7 +18,4 @@ interface VisitDAO {
 
     @Query("SELECT * FROM `Visit` ORDER BY date, hour")
     fun listAll(): LiveData<MutableList<Visit>>
-
-    @Query("SELECT * FROM `Visit` WHERE business_id = :businessId LIMIT 1")
-    fun findVisitByBusinessId(businessId: String): LiveData<Visit>
 }

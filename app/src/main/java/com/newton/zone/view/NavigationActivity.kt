@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.newton.zone.R
@@ -32,7 +31,7 @@ class NavigationActivity : AppCompatActivity() {
             title = destination.label
         }
 
-        componentsViewModel.components.observe(this, Observer {
+        componentsViewModel.components.observe(this, {
             it?.also { havComponent ->
                 run {
                     if (havComponent.bottomNavigation) {

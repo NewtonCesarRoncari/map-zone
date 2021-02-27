@@ -2,12 +2,7 @@ package com.newton.zone.view.fragment
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.location.Address
-import android.location.Geocoder
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
@@ -29,12 +24,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.newton.zone.extension.formatCoin
-import com.newton.zone.extension.limit
 import com.newton.zone.model.Business
 import com.newton.zone.model.CLIENT
 import com.newton.zone.model.LEAD
 import com.newton.zone.model.Type
-import com.newton.zone.view.fragment.HomeFragment.Constant.MAX_CHARACTER
 import com.newton.zone.view.fragment.HomeFragment.Constant.REQUEST_LOCATION_PERMISSION
 import com.newton.zone.view.fragment.HomeFragment.Constant.TIME_INTERVAL
 import com.newton.zone.view.fragment.HomeFragment.Constant.ZOOM_IN
@@ -44,8 +37,6 @@ import com.newton.zone.view.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.lang.Exception
-import java.lang.IndexOutOfBoundsException
 import java.util.*
 
 
@@ -72,8 +63,7 @@ class HomeFragment : Fragment() {
     object Constant {
         const val REQUEST_LOCATION_PERMISSION: Int = 99
         const val TIME_INTERVAL: Long = 120000
-        const val MAX_CHARACTER = 28
-        const val ZOOM_IN = 9.0F
+        const val ZOOM_IN = 17.0F
     }
 
     override fun onCreateView(
@@ -153,7 +143,7 @@ class HomeFragment : Fragment() {
             txtTag.text = business.name[0].toString().toUpperCase(Locale.ROOT)
             home_address.text = business.address
             home_segment.text = business.segment
-            home_tpv.text = business.tpv.formatCoin(requireContext())
+            home_tpv.text = business.tpv.formatCoin()
             whenBusinessIsClient(business)
         })
     }
@@ -162,7 +152,7 @@ class HomeFragment : Fragment() {
         businessViewModel.listAll().observe(viewLifecycleOwner) { listOfBusiness ->
             business = listOfBusiness
             for (business in listOfBusiness) {
-                val latLng = getCoordinates(business.address)
+                val latLng = businessViewModel.getCoordinates(business.address, requireContext())
                 if (latLng != null)
                     if (business.type == @Type LEAD) {
                         markPin(
@@ -181,17 +171,27 @@ class HomeFragment : Fragment() {
                     }
             }
             if (listOfBusiness.isNotEmpty()) {
-                try {
-                    googleMap.animateCamera(
-                        CameraUpdateFactory.newLatLngZoom(
-                            getCoordinates(listOfBusiness.last().address),
-                            ZOOM_IN
-                        )
-                    )
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+                moveCamera(googleMap, listOfBusiness)
             }
+        }
+    }
+
+    private fun moveCamera(
+        googleMap: GoogleMap,
+        listOfBusiness: MutableList<Business>
+    ) {
+        try {
+            googleMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    businessViewModel.getCoordinates(
+                        listOfBusiness.last().address,
+                        requireContext()
+                    ),
+                    ZOOM_IN
+                )
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -205,7 +205,7 @@ class HomeFragment : Fragment() {
             MarkerOptions()
                 .title(business.name)
                 .position(latLng)
-                .icon(bitmapDescriptorFromVector(requireActivity(), icImagePin))
+                .icon(businessViewModel.bitmapDescriptorFromVector(requireActivity(), icImagePin))
         )
         marker.tag = business.id
         markers.add(marker)
@@ -249,8 +249,8 @@ class HomeFragment : Fragment() {
                 )
             ) {
                 AlertDialog.Builder(requireContext())
-                    .setTitle("Permissão Location Negada")
-                    .setMessage("Este app precisa da Location permission, por favor aceite a funcionalidade location")
+                    .setTitle(com.newton.zone.R.string.message_request_permission_title)
+                    .setMessage(com.newton.zone.R.string.message_request_permission)
                     .setPositiveButton(
                         "OK"
                     ) { _, _ ->
@@ -300,24 +300,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-    private fun getCoordinates(address: String): LatLng? {
-        val location = Geocoder(requireContext())
-        val fromLocationName: List<Address>
-        try {
-            fromLocationName = location.getFromLocationName(address, 1)
-        } catch (error: Exception) {
-            error.printStackTrace()
-            return null
-        }
-        return try {
-            LatLng(fromLocationName[0].latitude, fromLocationName[0].longitude)
-        } catch (error: IndexOutOfBoundsException) {
-            error.printStackTrace()
-            null
-        }
-    }
-
     private var locationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val locationList = locationResult.locations
@@ -340,24 +322,6 @@ class HomeFragment : Fragment() {
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM_IN))
             }
         }
-    }
-
-    private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
-        val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
-        vectorDrawable!!.setBounds(
-            0,
-            0,
-            vectorDrawable.intrinsicWidth,
-            vectorDrawable.intrinsicHeight
-        )
-        val bitmap = Bitmap.createBitmap(
-            vectorDrawable.intrinsicWidth,
-            vectorDrawable.intrinsicHeight,
-            Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        vectorDrawable.draw(canvas)
-        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 
     private fun whenBusinessIsClient(business: Business) {

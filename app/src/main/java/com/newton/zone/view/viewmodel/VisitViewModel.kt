@@ -11,6 +11,4 @@ class VisitViewModel(private val repository: VisitRepository) : ViewModel() {
     fun update(visit: Visit) = repository.update(visit)
 
     fun listAll() = repository.listAll()
-
-    fun findVisitByBusinessId(businessId: String) = repository.findVisitByBusinessId(businessId)
 }

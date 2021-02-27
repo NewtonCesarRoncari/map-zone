@@ -3,17 +3,17 @@ package com.newton.zone.view.fragment
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.newton.zone.R
 import com.newton.zone.model.Visit
 import com.newton.zone.view.recyclerview.adapter.VisitAdapter
 import com.newton.zone.view.viewmodel.VisitViewModel
-import kotlinx.android.synthetic.main.fragment_list_client.*
 import kotlinx.android.synthetic.main.fragment_list_visits.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class ListVisitFragment: Fragment() {
+class ListVisitFragment : Fragment() {
 
     private val viewModel: VisitViewModel by viewModel()
     private lateinit var adapter: VisitAdapter
@@ -38,7 +38,7 @@ class ListVisitFragment: Fragment() {
         val searchItem by lazy { menu.findItem(R.id.action_search) }
         val searchView by lazy { searchItem.actionView as SearchView }
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
@@ -57,13 +57,16 @@ class ListVisitFragment: Fragment() {
         viewModel.listAll().observe(viewLifecycleOwner, { visits ->
             if (visits != null) {
                 ifEmptyPlayAnimation(visits, visit_list_animation)
-                val adapter = VisitAdapter(requireContext(), visits)
+                adapter = VisitAdapter(requireContext(), visits)
                 visit_rv.adapter = adapter
             }
         })
     }
 
-    private fun ifEmptyPlayAnimation(visits: MutableList<Visit>, listAnimation: LottieAnimationView) {
+    private fun ifEmptyPlayAnimation(
+        visits: MutableList<Visit>,
+        listAnimation: LottieAnimationView
+    ) {
         if (visits.isEmpty()) {
             initAnimation(listAnimation)
         } else {

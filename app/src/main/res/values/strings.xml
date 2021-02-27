@@ -41,4 +41,6 @@
     <string name="filter_clients">filtra clientes</string>
     <string name="icon_purple_pin">icon purple pin</string>
     <string name="t">T</string>
+    <string name="message_request_permission">Este app precisa da Location permission, por favor aceite a funcionalidade location</string>
+    <string name="message_request_permission_title">Permissão Location Negada</string>
 </resources>
