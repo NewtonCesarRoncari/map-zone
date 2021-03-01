@@ -1,4 +1,4 @@
-# map-zone
+# map-zone [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21) [![codebeat badge](https://codebeat.co/badges/bedd8e90-a65b-4fb4-a36a-d5f6843e1b19)](https://codebeat.co/projects/github-com-newtoncesarroncari-map-zone-develop)
 
 Este projeto consiste na criação de um app para gerenciar potenciais clientes de vendedores que fazem serviço de campo (se locomovem pela cidade), cadastrando potenciais clientes, enviando propostas e agendando visitas
 
