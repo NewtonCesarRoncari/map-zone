@@ -4,7 +4,7 @@ Este projeto consiste na criação de um app para gerenciar potenciais clientes 
 
 ## Funcionalidades
 
-<p>Ao localizar um potencial cliente em qualquer estabelecimento que seja, com os dados do cliente em mãos é posspível
+<p>Ao localizar um potencial cliente em qualquer estabelecimento que seja, com os dados do cliente em mãos é possível
 - Cadastrar informando os dados
 - Localizar a partir do mapa 
 - Agendar visita
